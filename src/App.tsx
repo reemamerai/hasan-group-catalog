@@ -2,9 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Catalog from './Catalog';
 import Contact from './Contact';
 
-// ==========================================
-// 1. الصفحة الرئيسية (Home)
-// ==========================================
+
 function Home() {
   return (
     <div>
@@ -83,9 +81,7 @@ function Home() {
   );
 }
 
-// ==========================================
-// 2. المكون الرئيسي مع التنقل
-// ==========================================
+
 function App() {
   return (
     <BrowserRouter>
@@ -218,9 +214,8 @@ function App() {
           <div className="border-t border-gray-800 pt-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-sm text-gray-400">
-                © 2026 <span className="text-[#D4AF37] font-bold">حسن غروب</span> - جميع الحقوق محفوظة
+                © 2026 <span className="text-[#D4AF37] font-bold">Hasan Group </span> - جميع الحقوق محفوظة
               </p>
-              <p className="text-xs text-gray-500">صُنع في سوريا</p>
             </div>
           </div>
         </div>

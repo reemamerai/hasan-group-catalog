@@ -19,14 +19,14 @@ function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
 
-  // تجهيز الرسالة
+  
   const text = `مرحباً، أنا ${formData.name}%0A%0Aالبريد: ${formData.email}%0Aالهاتف: ${formData.phone}%0A%0Aالرسالة:%0A${formData.message}`;
 
-  // فتح واتساب
-  const phone = '963985062351'; // ← استبدل هذا برقمك
+ 
+  const phone = '963990748314';  
   window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
 
-  // إظهار رسالة النجاح
+  
   setSubmitted(true);
   setTimeout(() => setSubmitted(false), 5000);
 };
@@ -91,7 +91,7 @@ function Contact() {
                 <div>
                   <h3 className="font-bold text-lg text-gray-800 mb-1">العنوان</h3>
                   <p className="text-gray-600">
-                    سوريا - القطيفة - النبك - يبرود - ديرعطية
+                    سوريا : القطيفة - النبك - يبرود - ديرعطية
                   </p>
                 </div>
               </div>
@@ -113,7 +113,7 @@ function Contact() {
             </div>
           </div>
 
-          {/* نموذج التواصل */}
+         
           <div className="bg-white rounded-xl p-8 shadow-md">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
               أرسل لنا رسالة

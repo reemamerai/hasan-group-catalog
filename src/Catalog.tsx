@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
-// ==========================================
-// بيانات المنتجات (20 منتج)
-// ==========================================
+
 const productsData = [
   // ---------- بورسلان ----------
   { id: 1, name: "بورسلان رخامي", category: "porcelain", size: "120×60", type: "لامع", image: "https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg?w=600", description: "بورسلان فاخر بتصميم رخامي" },
@@ -43,9 +41,7 @@ const categoryNames: { [key: string]: string } = {
   grout: 'روبة',
 };
 
-// ==========================================
 // مكون الكتالوج
-// ==========================================
 function Catalog() {
   const [category, setCategory] = useState('all');
   const [size, setSize] = useState('all');
@@ -111,8 +107,6 @@ function Catalog() {
         </div>
       </div>
 
-      {/* ============================================ */}
-      {/* الفلاتر */}
       {/* ============================================ */}
       <div className="max-w-7xl mx-auto px-6 py-10">
         {/* فلتر القسم */}
@@ -195,7 +189,6 @@ function Catalog() {
         </p>
 
         {/* ============================================ */}
-        {/* شبكة المنتجات */}
         {/* ============================================ */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
@@ -215,15 +208,12 @@ function Catalog() {
                     target.style.display = 'none';
                   }}
                 />
-                {/* طبقة زجاجية عند hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                {/* شارة القسم */}
                 <div className="absolute top-4 right-4 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg">
                   {categoryNames[product.category]}
                 </div>
 
-                {/* شارة المقاس */}
                 {product.size !== '-' && (
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur text-gray-800 text-xs px-3 py-1.5 rounded-full font-bold shadow-lg border border-amber-200">
                     {product.size}
@@ -250,7 +240,6 @@ function Catalog() {
                   {product.description}
                 </p>
 
-                {/* زر واتساب */}
                 <a
                   href={`https://wa.me/963990748314?text=مرحباً، أريد الاستفسار عن: ${product.name} (${product.size})`}
                   target="_blank"
