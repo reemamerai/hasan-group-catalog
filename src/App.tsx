@@ -13,7 +13,6 @@ function Home() {
             Hasan Group
           </h1>
           <p className="text-xl md:text-2xl mb-4 text-gold-dark font-semibold tracking-wide">
-            سيراميك • بورسلان • مغاسل • مرايا
           </p>
           <p className="text-lg mb-8 leading-relaxed text-gray-700">
             وجهتك الأولى لأفخم أنواع السيراميك والأدوات الصحية. نقدم لكم جودة عالية
