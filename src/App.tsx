@@ -88,18 +88,28 @@ function App() {
       <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-4">
           {/* الشعار */}
-          <Link to="/" className="text-2xl font-bold text-gold-dark">
-            Hasan Group <span className="text-gray-700 text-base font-normal">| Hasan Group</span>
-          </Link>
+          <Link to="/" className="flex items-center gap-3">
+  <img 
+    src="/logo.png" 
+    alt="HG" 
+    className="h-12 w-auto object-contain"
+    onError={(e) => {
+      (e.target as HTMLImageElement).style.display = 'none';
+    }}
+  />
+  <span className="text-2xl font-bold text-gold-dark">
+    Hasan Group <span className="text-gray-700 text-base font-normal">| Hasan Group</span>
+  </span>
+</Link>
 
-          {/* روابط التنقل + أيقونات التواصل */}
+       
           <div className="flex items-center gap-6">
             <ul className="flex flex-wrap gap-6 text-gray-700 font-semibold">
               <li><Link to="/" className="hover:text-gold transition">الرئيسية</Link></li>
               <li><Link to="/products" className="hover:text-gold transition">المنتجات</Link></li>
             </ul>
 
-            {/* أيقونات التواصل */}
+           
             <div className="flex gap-3">
               <a
                 href="https://www.facebook.com/share/19hFZh1RWz/?mibextid=wwXIfr"
