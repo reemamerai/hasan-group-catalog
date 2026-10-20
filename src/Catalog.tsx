@@ -1,128 +1,140 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
+const SHEET_ID = '1u0DEJZB06057hRMqhvbiAS3PrxgEYkRiN3PG4zcA4nA';
 
-const productsData = [
-  // ---------- بورسلان ----------
-  { id: 1, name: "بورسلان رخامي", category: "porcelain", size: "120×60", type: "لامع", image: "https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg?w=600", description: "بورسلان فاخر بتصميم رخامي" },
-  { id: 2, name: "بورسلان بيج", category: "porcelain", size: "120×60", type: "مت", image: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?w=600", description: "بورسلان بتشطيب مطفي أنيق" },
-  { id: 3, name: "بورسلان رمادي حفر", category: "porcelain", size: "120×60", type: "حفر", image: "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?w=600", description: "بورسلان بملمس محفور" },
-  { id: 4, name: "بورسلان أبيض", category: "porcelain", size: "60×60", type: "لامع", image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=600", description: "بورسلان أبيض لامع" },
-  { id: 5, name: "بورسلان أسود", category: "porcelain", size: "60×60", type: "مت", image: "https://images.pexels.com/photos/1616403/pexels-photo-1616403.jpeg?w=600", description: "بورسلان أسود مطفي فاخر" },
-  { id: 6, name: "بورسلان خشبي حفر", category: "porcelain", size: "120×40", type: "حفر", image: "https://images.pexels.com/photos/276528/pexels-photo-276528.jpeg?w=600", description: "بورسلان بتصميم خشبي محفور" },
-
-  // ---------- سيراميك ----------
-  { id: 7, name: "سيراميك رخامي أبيض", category: "ceramic", size: "60×60", type: "لامع", image: "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg?w=600", description: "سيراميك أرضيات بتصميم رخامي" },
-  { id: 8, name: "سيراميك بيج كلاسيك", category: "ceramic", size: "60×60", type: "مت", image: "https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?w=600", description: "سيراميك كلاسيكي مطفي" },
-  { id: 9, name: "سيراميك جدران خشبي", category: "ceramic", size: "30×60", type: "لامع", image: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?w=600", description: "سيراميك جدران بتصميم خشبي" },
-  { id: 10, name: "سيراميك رمادي", category: "ceramic", size: "30×60", type: "مت", image: "https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg?w=600", description: "سيراميك رمادي مطفي" },
-  { id: 11, name: "سيراميك بيج صغير", category: "ceramic", size: "80×40", type: "لامع", image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?w=600", description: "سيراميك مقاس صغير لامع" },
-
-  // ---------- صحية ----------
-  { id: 12, name: "طقم حمام كامل", category: "sanitary", size: "-", type: "-", image: "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?w=600", description: "طقم حمامات كامل بتصميم عصري" },
-  { id: 13, name: "مجلس ستالس فاخر", category: "sanitary", size: "-", type: "-", image: "https://images.pexels.com/photos/2082090/pexels-photo-2082090.jpeg?w=600", description: "مجلس ستالس فاخر" },
-  { id: 14, name: "مغسلة زجاج شفاف", category: "sanitary", size: "-", type: "-", image: "https://images.pexels.com/photos/1909791/pexels-photo-1909791.jpeg?w=600", description: "مغسلة زجاج شفاف" },
-
-  // ---------- لاصق ----------
-  { id: 15, name: "لاصق نهر", category: "adhesive", size: "-", type: "-", image: "https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?w=600", description: "لاصق نهر عالي الجودة" },
-  { id: 16, name: "لاصق روكسي", category: "adhesive", size: "-", type: "-", image: "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?w=600", description: "لاصق روكسي الأصلي" },
-  { id: 17, name: "لاصق بولي فكس إماراتي", category: "adhesive", size: "-", type: "-", image: "https://images.pexels.com/photos/209230/pexels-photo-209230.jpeg?w=600", description: "لاصق بولي فكس إماراتي" },
-
-  // ---------- روبة ----------
-  { id: 18, name: "روبة نهر", category: "grout", size: "-", type: "-", image: "https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?w=600", description: "روبة نهر عالية الجودة" },
-  { id: 19, name: "روبة فيترا بني", category: "grout", size: "-", type: "-", image: "https://images.pexels.com/photos/209251/pexels-photo-209251.jpeg?w=600", description: "روبة فيترا بني" },
-  { id: 20, name: "روبة تركي مطاطي", category: "grout", size: "-", type: "-", image: "https://images.pexels.com/photos/1249610/pexels-photo-1249610.jpeg?w=600", description: "روبة تركي مطاطي" },
-];
-
-const categoryNames: { [key: string]: string } = {
-  porcelain: 'بورسلان',
-  ceramic: 'سيراميك',
-  sanitary: 'صحية',
-  adhesive: 'لاصق',
-  grout: 'روبة',
-};
-
-// مكون الكتالوج
 function Catalog() {
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  
   const [category, setCategory] = useState('all');
   const [size, setSize] = useState('all');
-  const [type, setType] = useState('all');
+  const [subcategory, setSubcategory] = useState('all');
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`https://opensheet.elk.sh/${SHEET_ID}/Sheet1`);
+        const data = await res.json();
+        
+        const cleanedData = data.map((item: any) => {
+          // البحث عن القسم في كل الأعمدة المحتملة
+          const cat = (item.type || item.category || '').trim();
+          const sub = (item.subcategory || '').trim();
+          const desc = (item.description || '').trim();
+          
+          // إذا كان القسم فارغاً، نحاول البحث في الوصف
+          let finalCat = cat;
+          if (!finalCat) {
+            if (desc.includes('لاصق') || desc.includes('نهر') || desc.includes('روكس') || desc.includes('فكس')) {
+              finalCat = 'adhesive';
+            } else if (desc.includes('روبة') || desc.includes('كونكس') || desc.includes('فيترا')) {
+              finalCat = 'grout';
+            }
+          }
+
+          // البحث عن المقاس
+          let finalSize = (item.size || '').trim();
+          if (!finalSize && cat.includes('*')) {
+            finalSize = cat;
+          }
+
+          return {
+            ...item,
+            categoryName: finalCat,
+            sizeName: finalSize,
+            subcategoryName: sub,
+            fullDescription: desc || 'منتج عالي الجودة',
+          };
+        });
+        
+        setProducts(cleanedData);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const uniqueSubcategories = ['all', ...new Set(
+    products.filter(p => p.categoryName.includes('sanitary')).map(p => p.subcategoryName).filter(Boolean)
+  )];
+
+  // استخراج المقاسات من القسم المختار فقط
+const uniqueSizes = ['all', ...new Set(
+  products
+    .filter(p => p.categoryName.includes(category)) // ← نفلتر حسب القسم الحالي
+    .map(p => p.sizeName)
+    .filter(Boolean)
+)];
 
   const categories = [
     { key: 'all', label: 'الكل', icon: '🏠' },
     { key: 'porcelain', label: 'بورسلان', icon: '◼️' },
     { key: 'ceramic', label: 'سيراميك', icon: '🔲' },
     { key: 'sanitary', label: 'صحية', icon: '🚿' },
-    { key: 'adhesive', label: 'لاصق', icon: '🧴' },
-    { key: 'grout', label: 'روبة', icon: '🪣' },
+    { key: 'adhesive_grout', label: 'لاصق وروبة', icon: '🧴' },
   ];
 
-  const sizes = ['all', '60×60', '30×60', '80×40', '120×60', '120×40', '120×240'];
-  const types = ['all', 'لامع', 'مت', 'حفر'];
+  const showSize = category === 'ceramic' || category === 'porcelain';
+  const showSubcategory = category === 'sanitary';
 
-  const showSizeAndType = category === 'porcelain' || category === 'ceramic';
-
-  const filteredProducts = productsData.filter((p) => {
-    if (category !== 'all' && p.category !== category) return false;
-    if (showSizeAndType) {
-      if (size !== 'all' && p.size !== size) return false;
-      if (type !== 'all' && p.type !== type) return false;
+  const filteredProducts = products.filter((p) => {
+    // 1. فلترة القسم
+    if (category !== 'all') {
+      if (category === 'adhesive_grout') {
+        if (!p.categoryName.includes('adhesive') && !p.categoryName.includes('grout')) return false;
+      } else if (!p.categoryName.includes(category)) {
+        return false;
+      }
     }
+
+    // 2. فلترة القسم الفرعي
+    if (showSubcategory && subcategory !== 'all') {
+      if (!p.subcategoryName || !p.subcategoryName.includes(subcategory)) return false;
+    }
+
+    // 3. فلترة المقاس
+    if (showSize && size !== 'all') {
+      if (!p.sizeName || !p.sizeName.includes(size)) return false;
+    }
+
     return true;
   });
 
-  const handleCategoryChange = (newCategory: string) => {
-    setCategory(newCategory);
-    setSize('all');
-    setType('all');
+  const getImageUrl = (url: string) => {
+    if (!url) return 'https://via.placeholder.com/400x400?text=No+Image';
+    return url;
   };
 
-  return (
-    <div className="min-h-[80vh] bg-gradient-to-b from-amber-50 via-white to-amber-50">
-      {/* ============================================ */}
-      {/* هيدر مخصص */}
-      {/* ============================================ */}
-      <div className="relative py-20 px-6 text-center bg-gradient-to-r from-amber-100 via-amber-50 to-amber-100 overflow-hidden">
-        {/* زخرفة خلفية */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10 w-40 h-40 border-4 border-amber-600 rounded-full"></div>
-          <div className="absolute bottom-10 right-10 w-60 h-60 border-4 border-amber-600 rounded-full"></div>
-        </div>
+  if (loading) return <div className="text-center py-20 text-xl font-bold text-gold">جاري تحميل المنتجات...</div>;
 
+  return (
+    <div className="min-h-[80vh] bg-gradient-to-b from-amber-50 via-white to-amber-50 relative">
+      {/* الهيدر */}
+      <div className="relative py-20 px-6 text-center bg-gradient-to-r from-amber-100 via-amber-50 to-amber-100 overflow-hidden">
         <div className="relative z-10 max-w-3xl mx-auto">
-          <p className="text-amber-700 tracking-[0.3em] text-sm mb-4 font-semibold">
-            HASAN GROUP
-          </p>
+          <p className="text-amber-700 tracking-[0.3em] text-sm mb-4 font-semibold">HASAN GROUP</p>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6">
             كتالوج <span className="text-[#D4AF37]">منتجاتنا</span>
           </h1>
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-16 bg-[#D4AF37]"></div>
-            <span className="text-[#D4AF37] text-2xl">✦</span>
-            <div className="h-px w-16 bg-[#D4AF37]"></div>
-          </div>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            تصفح مجموعتنا المختارة من السيراميك والبورسلان والأدوات الصحية
-            بأفضل جودة وأرقى التصاميم
-          </p>
         </div>
       </div>
 
-      {/* ============================================ */}
       <div className="max-w-7xl mx-auto px-6 py-10">
-        {/* فلتر القسم */}
+        {/* أزرار الأقسام */}
         <div className="mb-8 text-center">
-          <p className="text-xs font-bold text-amber-700 tracking-widest mb-4">
-            ─ اختر القسم ─
-          </p>
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((c) => (
               <button
                 key={c.key}
-                onClick={() => handleCategoryChange(c.key)}
+                onClick={() => { setCategory(c.key); setSize('all'); setSubcategory('all'); }}
                 className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 ${
                   category === c.key
                     ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white shadow-xl scale-105'
-                    : 'bg-white text-gray-700 hover:bg-amber-50 border-2 border-amber-200 hover:border-[#D4AF37]'
+                    : 'bg-white text-gray-700 hover:bg-amber-50 border-2 border-amber-200'
                 }`}
               >
                 <span>{c.icon}</span>
@@ -132,53 +144,42 @@ function Catalog() {
           </div>
         </div>
 
-        {/* فلاتر المقاس والنوع */}
-        {showSizeAndType && (
+        {/* فلاتر المقاسات */}
+        {showSize && (
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-amber-100 mb-10">
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* المقاس */}
-              <div>
-                <p className="text-xs font-bold text-amber-700 tracking-widest mb-3">
-                  ─ المقاس ─
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {sizes.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => setSize(s)}
-                      className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
-                        size === s
-                          ? 'bg-[#D4AF37] text-white shadow-md'
-                          : 'bg-gray-50 text-gray-700 hover:bg-amber-50 border border-gray-200'
-                      }`}
-                    >
-                      {s === 'all' ? 'الكل' : s}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            <p className="text-xs font-bold text-amber-700 tracking-widest mb-3">─ المقاس ─</p>
+            <div className="flex flex-wrap gap-2">
+              {uniqueSizes.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSize(s)}
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                    size === s ? 'bg-[#D4AF37] text-white' : 'bg-gray-50 text-gray-700 border'
+                  }`}
+                >
+                  {s === 'all' ? 'الكل' : s}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
-              {/* النوع */}
-              <div>
-                <p className="text-xs font-bold text-amber-700 tracking-widest mb-3">
-                  ─ النوع ─
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {types.map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => setType(t)}
-                      className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
-                        type === t
-                          ? 'bg-[#D4AF37] text-white shadow-md'
-                          : 'bg-gray-50 text-gray-700 hover:bg-amber-50 border border-gray-200'
-                      }`}
-                    >
-                      {t === 'all' ? 'الكل' : t}
-                    </button>
-                  ))}
-                </div>
-              </div>
+        {/* فلاتر الأقسام الفرعية */}
+        {showSubcategory && (
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-amber-100 mb-10">
+            <p className="text-xs font-bold text-amber-700 tracking-widest mb-3">─ اختر النوع ─</p>
+            <div className="flex flex-wrap gap-2">
+              {uniqueSubcategories.map((sub) => (
+                <button
+                  key={sub}
+                  onClick={() => setSubcategory(sub)}
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                    subcategory === sub ? 'bg-[#D4AF37] text-white' : 'bg-gray-50 text-gray-700 border'
+                  }`}
+                >
+                  {sub === 'all' ? 'الكل' : sub}
+                </button>
+              ))}
             </div>
           </div>
         )}
@@ -188,81 +189,72 @@ function Catalog() {
           عدد المنتجات: <span className="font-bold text-[#D4AF37]">{filteredProducts.length}</span>
         </p>
 
-        {/* ============================================ */}
-        {/* ============================================ */}
+        {/* شبكة المنتجات */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <div
-              key={product.id}
-              className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-amber-100 hover:border-[#D4AF37] hover:-translate-y-2"
+          {filteredProducts.map((product, index) => (
+            <div 
+              key={index} 
+              onClick={() => setSelectedProduct(product)}
+              className="cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-amber-100 hover:border-[#D4AF37] hover:-translate-y-2"
             >
-              {/* الصورة */}
               <div className="relative overflow-hidden h-64 bg-amber-50">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={getImageUrl(product.image)}
+                  alt={product.code}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                <div className="absolute top-4 right-4 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg">
-                  {categoryNames[product.category]}
+                <div className="absolute top-4 right-4 bg-[#D4AF37] text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg">
+                  {product.categoryName}
                 </div>
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-gray-800 mb-2">{product.code || 'بدون كود'}</h3>
+                <p className="text-sm text-gray-500 line-clamp-2">{product.fullDescription}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
-                {product.size !== '-' && (
-                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur text-gray-800 text-xs px-3 py-1.5 rounded-full font-bold shadow-lg border border-amber-200">
-                    {product.size}
-                  </div>
+      {/* النافذة المنبثقة */}
+      {selectedProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedProduct(null)}>
+          <div 
+            className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full overflow-hidden relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setSelectedProduct(null)}
+              className="absolute top-4 left-4 z-10 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-800 hover:bg-gray-200 transition"
+            >
+              ✕
+            </button>
+            <div className="grid md:grid-cols-2 gap-0">
+              <div className="h-64 md:h-auto bg-gray-100 relative">
+                <img src={getImageUrl(selectedProduct.image)} alt={selectedProduct.code} className="w-full h-full object-cover" />
+                {selectedProduct.image2 && (
+                  <img src={getImageUrl(selectedProduct.image2)} alt={selectedProduct.code} className="absolute bottom-4 right-4 w-24 h-24 object-cover rounded-lg shadow-lg border-2 border-white" />
                 )}
               </div>
-
-              {/* المحتوى */}
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-[#B8860B] transition-colors duration-300">
-                  {product.name}
-                </h3>
-
-                {product.type !== '-' && (
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="w-2 h-2 rounded-full bg-[#D4AF37]"></span>
-                    <p className="text-xs text-amber-700 font-bold tracking-wider">
-                      {product.type}
-                    </p>
-                  </div>
-                )}
-
-                <p className="text-sm text-gray-500 mb-5 line-clamp-2 leading-relaxed">
-                  {product.description}
-                </p>
-
+              <div className="p-8 flex flex-col justify-center">
+                <span className="text-sm font-bold text-[#D4AF37] bg-amber-50 px-3 py-1 rounded-full w-fit mb-4">
+                  {selectedProduct.subcategoryName || selectedProduct.categoryName}
+                </span>
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">{selectedProduct.code}</h2>
+                <p className="text-gray-600 mb-6 leading-relaxed text-lg">{selectedProduct.fullDescription}</p>
                 <a
-                  href={`https://wa.me/963990748314?text=مرحباً، أريد الاستفسار عن: ${product.name} (${product.size})`}
+                  href={`https://wa.me/963990748314?text=مرحباً، أريد الاستفسار عن: ${selectedProduct.code}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-center bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#B8860B] hover:to-[#8B6914] text-white text-sm px-4 py-2.5 rounded-xl transition-all duration-300 font-bold shadow-md hover:shadow-xl"
+                  className="block text-center bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white px-6 py-4 rounded-xl transition-all duration-300 font-bold shadow-lg hover:shadow-xl text-lg"
                 >
                   💬 استفسر عبر واتساب
                 </a>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* لا توجد نتائج */}
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-6xl mb-4">🔍</p>
-            <p className="text-gray-500 text-lg">
-              لا توجد منتجات بهذه المواصفات حالياً.
-            </p>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
