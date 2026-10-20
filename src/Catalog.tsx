@@ -61,10 +61,12 @@ function Catalog() {
   const uniqueSubcategories = ['all', ...new Set(
     products.filter(p => p.categoryName.includes('sanitary')).map(p => p.subcategoryName).filter(Boolean)
   )];
-
-  const uniqueSizes = ['all', ...new Set(
-    products.filter(p => p.categoryName.includes('ceramic') || p.categoryName.includes('porcelain')).map(p => p.sizeName).filter(Boolean)
-  )];
+const uniqueSizes = ['all', ...new Set(
+  products
+    .filter(p => p.categoryName.includes(category)) // ← نفلتر حسب القسم الحالي
+    .map(p => p.sizeName)
+    .filter(Boolean)
+)];
 
   const categories = [
     { key: 'all', label: 'الكل', icon: '🏠' },
