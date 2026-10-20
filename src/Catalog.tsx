@@ -62,13 +62,9 @@ function Catalog() {
     products.filter(p => p.categoryName.includes('sanitary')).map(p => p.subcategoryName).filter(Boolean)
   )];
 
-  // استخراج المقاسات من القسم المختار فقط
-const uniqueSizes = ['all', ...new Set(
-  products
-    .filter(p => p.categoryName.includes(category)) // ← نفلتر حسب القسم الحالي
-    .map(p => p.sizeName)
-    .filter(Boolean)
-)];
+  const uniqueSizes = ['all', ...new Set(
+    products.filter(p => p.categoryName.includes('ceramic') || p.categoryName.includes('porcelain')).map(p => p.sizeName).filter(Boolean)
+  )];
 
   const categories = [
     { key: 'all', label: 'الكل', icon: '🏠' },
@@ -216,11 +212,11 @@ const uniqueSizes = ['all', ...new Set(
         </div>
       </div>
 
-      {/* النافذة المنبثقة */}
+            {/* النافذة المنبثقة */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedProduct(null)}>
           <div 
-            className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full overflow-hidden relative"
+            className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-y-auto relative flex flex-col md:flex-row"
             onClick={(e) => e.stopPropagation()}
           >
             <button 
@@ -229,28 +225,31 @@ const uniqueSizes = ['all', ...new Set(
             >
               ✕
             </button>
-            <div className="grid md:grid-cols-2 gap-0">
-              <div className="h-64 md:h-auto bg-gray-100 relative">
-                <img src={getImageUrl(selectedProduct.image)} alt={selectedProduct.code} className="w-full h-full object-cover" />
-                {selectedProduct.image2 && (
-                  <img src={getImageUrl(selectedProduct.image2)} alt={selectedProduct.code} className="absolute bottom-4 right-4 w-24 h-24 object-cover rounded-lg shadow-lg border-2 border-white" />
-                )}
-              </div>
-              <div className="p-8 flex flex-col justify-center">
-                <span className="text-sm font-bold text-[#D4AF37] bg-amber-50 px-3 py-1 rounded-full w-fit mb-4">
-                  {selectedProduct.subcategoryName || selectedProduct.categoryName}
-                </span>
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">{selectedProduct.code}</h2>
-                <p className="text-gray-600 mb-6 leading-relaxed text-lg">{selectedProduct.fullDescription}</p>
-                <a
-                  href={`https://wa.me/963990748314?text=مرحباً، أريد الاستفسار عن: ${selectedProduct.code}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-center bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white px-6 py-4 rounded-xl transition-all duration-300 font-bold shadow-lg hover:shadow-xl text-lg"
-                >
-                  💬 استفسر عبر واتساب
-                </a>
-              </div>
+            
+            {/* جزء الصورة */}
+            <div className="w-full md:w-1/2 bg-gray-100 flex items-center justify-center p-4">
+              <img 
+                src={getImageUrl(selectedProduct.image)} 
+                alt={selectedProduct.code} 
+                className="w-full h-auto max-h-[50vh] md:max-h-[80vh] object-contain rounded-lg" 
+              />
+            </div>
+
+            {/* جزء التفاصيل */}
+            <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+              <span className="text-sm font-bold text-[#D4AF37] bg-amber-50 px-3 py-1 rounded-full w-fit mb-4">
+                {selectedProduct.subcategoryName || selectedProduct.categoryName}
+              </span>
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">{selectedProduct.code}</h2>
+              <p className="text-gray-600 mb-6 leading-relaxed text-lg">{selectedProduct.fullDescription}</p>
+              <a
+                href={`https://wa.me/963990748314?text=مرحباً، أريد الاستفسار عن: ${selectedProduct.code}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white px-6 py-4 rounded-xl transition-all duration-300 font-bold shadow-lg hover:shadow-xl text-lg"
+              >
+                💬 استفسر عبر واتساب
+              </a>
             </div>
           </div>
         </div>
