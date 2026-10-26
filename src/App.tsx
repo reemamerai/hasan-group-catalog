@@ -34,20 +34,56 @@ function Home() {
           </div>
         </div>
       </section>
+{/* About Section */}
+<section className="py-20 px-6 bg-white">
+  <div className="max-w-4xl mx-auto">
+    
+    {/* العنوان: في المنتصف */}
+    <div className="text-center mb-10">
+      <h2 className="text-4xl font-bold text-gray-800 mb-4">من نحن</h2>
+      <div className="w-20 h-1 bg-[#D4AF37] mx-auto rounded"></div>
+    </div>
 
-      {/* About Section */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">من نحن</h2>
-          <div className="w-20 h-1 bg-gold mx-auto mb-8 rounded"></div>
-          <p className="text-lg leading-loose text-gray-600">
-            تأسست شركة <span className="font-bold text-gold-dark">Hasan Group</span> لتكون رائدة في مجال توريد مستلزمات البناء والتشطيب.
-            نحن متخصصون في توفير أفضل ماركات السيراميك والبورسلان والمغاسل والمرايا بأسعار تنافسية.
-            هدفنا هو تحويل منزلك إلى تحفة فنية من خلال منتجاتنا المتنوعة وفريقنا المتخصص.
-          </p>
-        </div>
-      </section>
+    {/* المستطيل الفاخر */}
+    <div className="bg-amber-50/50 border border-amber-200 rounded-3xl p-8 md:p-12 shadow-lg relative overflow-hidden">
+      
+      {/* زخرفة خلفية (اختياري) */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37] opacity-5 rounded-bl-full"></div>
+      <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#D4AF37] opacity-5 rounded-tr-full"></div>
 
+      {/* النص: يبدأ من اليمين */}
+      <div className="space-y-6 relative z-10">
+        
+        {/* 1. التعريف بالشركة */}
+        <p dir="rtl" className="text-lg leading-loose text-gray-800 text-right">
+          تأسست شركة <span className="font-bold text-[#B8860B]">حسن غروب</span> لتكون رائدة في مجال توريد مستلزمات البناء والتشطيب. نحن نفخر بكوننا وكيلاً معتمداً لأكبر وأعرق الشركات العالمية، حيث نتعامل مع:
+        </p>
+
+        {/* 2. الشركات (الوكلاء) */}
+        <ul dir="rtl" className="list-disc space-y-3 text-gray-700 text-lg leading-loose pr-6 text-right">
+          <li>
+            <span className="font-bold text-gray-900">شركة فوجيان الصينية (Fujian)</span> - رائدة صناعة السيراميك والبورسلان.
+          </li>
+          <li>
+            <span className="font-bold text-gray-900">شركة بنيان السعودية (Bunyan)</span> - جودة سعودية عالية.
+          </li>
+          <li>
+            <span className="font-bold text-gray-900">شركة هانغ كانغ الصينية (Hang Kang)</span> - تصاميم عصرية.
+          </li>
+          <li>
+            <span className="font-bold text-gray-900">شركة الخليج (Gulf)</span> - أدوات صحية فاخرة.
+          </li>
+        </ul>
+
+        {/* 3. بيع الجملة والمفرق */}
+        <p dir="rtl" className="text-lg leading-loose text-gray-800 text-right">
+          نوفر خدماتنا بيعاً بالجملة والمفرق لتلبية احتياجات جميع العملاء، مع فريق متخصص يهدف إلى تحويل منزلك إلى تحفة فنية.
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>
       {/* Categories Section */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
@@ -58,8 +94,7 @@ function Home() {
               { title: 'بورسلان', desc: 'متانة وفخامة تدوم طويلاً', icon: '◼️', path: '/products' },
               { title: 'سيراميك', desc: 'أرضيات وجدران بتصاميم عصرية', icon: '🔲', path: '/products' },
               { title: 'صحية', desc: 'أطقم حمامات ومجالس ومغاسل', icon: '🚿', path: '/products' },
-              { title: 'لاصق', desc: 'أجود أنواع اللاصق العالمي', icon: '🧴', path: '/products' },
-              { title: 'روبة', desc: 'روبة عالية الجودة بجميع الأنواع', icon: '🪣', path: '/products' },
+              { title: 'لاصق و روبة ', desc: 'أجود أنواع اللاصق و الروبة العالمي', icon: '🧴', path: '/products' },
             ].map((cat) => (
               <Link
                 key={cat.title}
@@ -164,12 +199,16 @@ function App() {
                 <li className="flex items-center gap-2">
                   <span>📞</span>
                   <a href="tel:+963990748314" className="hover:text-[#D4AF37] transition" dir="ltr">
-                    +963 990 748 314
+                    +963 954524972 <br/> +963 996604258 
                   </a>
                 </li>
                 <li className="flex items-center gap-2">
                   <span>📍</span>
-                  <span>سوريا - القطيفة - النبك - يبرود - ديرعطية</span>
+<span> سوريا  - دمشق   <br/>
+         حمص -<br/>
+       حماة -<br/>
+      ريف دمشق : القظيفة , النبك - , يبرود , دير عطية -      
+                  </span>
                 </li>
               </ul>
             </div>
@@ -178,7 +217,7 @@ function App() {
               <h3 className="text-lg font-bold text-[#D4AF37] mb-4">تابعنا على</h3>
               <div className="flex gap-3">
                 <a
-                  href="https://www.facebook.com/share/19hFZh1RWz/?mibextid=wwXIfr"
+                  href="https://www.facebook.com/share/1Da2nRsFSY/?mibextid=wwXIfr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
@@ -190,7 +229,7 @@ function App() {
                 </a>
 
                 <a
-                  href="https://www.instagram.com/hasan.group1?xtok=OW0zbmJlN2Z4OGJ1"
+                  href="https://www.instagram.com/hasan_group2?xtok=dGQ3ZmZ2aDZzODVo"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 hover:opacity-90 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
