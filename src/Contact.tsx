@@ -79,7 +79,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-800 mb-1">العنوان</h3>
-                  <p className="text-gray-600">سوريا - دمشق - ريف دمشق - القطيفة - النبك - يبرود - دير عطية</p>
+                  <p className="text-gray-600">سوريا - دمشق -حمص - حماة  - ريف دمشق - القطيفة - النبك - يبرود - دير عطية</p>
                 </div>
               </div>
             </div>
