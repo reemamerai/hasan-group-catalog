@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import emailjs from '@emailjs/browser';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -10,7 +9,6 @@ function Contact() {
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,30 +16,15 @@ function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    // ⚠️ استبدلي هذه القيم بمفاتيح EmailJS الخاصة بك
-    const SERVICE_ID = 'YOUR_SERVICE_ID';
-    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-    const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
-
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-      from_name: formData.name,
-      from_email: formData.email,
-      phone: formData.phone,
-      message: formData.message,
-    }, PUBLIC_KEY)
-    .then(() => {
-      setSubmitted(true);
-      setLoading(false);
-      setFormData({ name: '', email: '', phone: '', message: '' });
-      setTimeout(() => setSubmitted(false), 5000);
-    })
-    .catch((err) => {
-      console.error(err);
-      setLoading(false);
-      alert('حدث خطأ، يرجى المحاولة مرة أخرى.');
-    });
+    
+    const subject = `رسالة جديدة من ${formData.name}`;
+    const body = `الاسم: ${formData.name}%0Aالبريد: ${formData.email}%0Aالهاتف: ${formData.phone}%0A%0Aالرسالة:%0A${formData.message}`;
+    
+    window.location.href = `mailto:hasangroup.ceramic@gmail.com?subject=${subject}&body=${body}`;
+    
+    setSubmitted(true);
+    setFormData({ name: '', email: '', phone: '', message: '' }); // تفريغ الحقول
+    setTimeout(() => setSubmitted(false), 5000);
   };
 
   return (
@@ -55,7 +38,6 @@ function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* معلومات التواصل */}
           <div className="space-y-6">
             <div className="bg-white rounded-xl p-6 shadow-md border-r-4 border-[#D4AF37]">
               <div className="flex items-start gap-4">
@@ -64,8 +46,8 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-800 mb-1">الهاتف</h3>
-                  <a href="tel:+963990748314" className="text-[#B8860B] hover:underline" dir="ltr">
-                   +963 954524972 <br/> +963 996604258 
+                  <a href="tel:+963996604258" className="text-[#B8860B] hover:underline" dir="ltr">
+                    +963 996 604 258
                   </a>
                 </div>
               </div>
@@ -79,7 +61,7 @@ function Contact() {
                 <div>
                   <h3 className="font-bold text-lg text-gray-800 mb-1">واتساب</h3>
                   <a
-                    href="https://wa.me/954524972"
+                    href="https://wa.me/963996604258"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#B8860B] hover:underline"
@@ -97,11 +79,7 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-800 mb-1">العنوان</h3>
-                  <p className="text-gray-600">  سوريا  - دمشق   <br/>
-         حمص -<br/>
-       حماة -<br/>
-      ريف دمشق : القظيفة , النبك - , يبرود , دير عطية -      
-                  </p>
+                  <p className="text-gray-600">سوريا - دمشق - ريف دمشق - القطيفة - النبك - يبرود - دير عطية</p>
                 </div>
               </div>
             </div>
@@ -111,21 +89,20 @@ function Contact() {
               <h3 className="font-bold text-xl mb-2">هل تريد الانضمام إلينا؟</h3>
               <p className="text-sm mb-4 opacity-90">نبحث دائماً عن مواهب جديدة للعمل معنا</p>
               <a
-  href="mailto:hasangroup.ceramic@gmail.com?subject=طلب انضمام إلى فريق حسن غروب&body=مرحباً،%0A%0Aأرغب في الانضمام إلى فريقكم.%0A%0Aالاسم:%0Aالبريد:%0Aرقم الهاتف:%0Aالسيرة الذاتية (مرفقة):"
-  className="inline-block bg-white text-[#B8860B] font-bold px-6 py-2 rounded-lg hover:bg-gray-100 transition"
->
-  انضم إلينا الآن
-</a>
+                href="mailto:hasangroup.ceramic@gmail.com?subject=طلب انضمام إلى فريق حسن غروب&body=مرحباً،%0A%0Aأرغب في الانضمام إلى فريقكم.%0A%0Aالاسم:%0Aالبريد:%0Aرقم الهاتف:%0Aالسيرة الذاتية (مرفقة):"
+                className="inline-block bg-white text-[#B8860B] font-bold px-6 py-2 rounded-lg hover:bg-gray-100 transition"
+              >
+                انضم إلينا الآن
+              </a>
             </div>
           </div>
 
-          {/* نموذج التواصل */}
           <div className="bg-white rounded-xl p-8 shadow-md">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">أرسل لنا رسالة</h2>
 
             {submitted && (
               <div className="bg-green-50 border border-green-200 text-green-700 rounded-lg p-4 mb-6">
-                ✅ تم استلام رسالتك، سنتواصل معك قريباً!
+                ✅ تم تجهيز رسالتك، يرجى إرسالها من تطبيق البريد الإلكتروني.
               </div>
             )}
 
@@ -183,10 +160,9 @@ function Contact() {
 
               <button
                 type="submit"
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#B8860B] hover:to-[#8B6914] text-white font-bold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#B8860B] hover:to-[#8B6914] text-white font-bold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                {loading ? 'جاري الإرسال...' : 'إرسال الرسالة'}
+                إرسال الرسالة
               </button>
             </form>
           </div>
