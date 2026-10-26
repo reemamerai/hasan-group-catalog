@@ -65,7 +65,7 @@ function Contact() {
                 <div>
                   <h3 className="font-bold text-lg text-gray-800 mb-1">الهاتف</h3>
                   <a href="tel:+963990748314" className="text-[#B8860B] hover:underline" dir="ltr">
-                    +963 990 748 314
+                   +963 954524972 <br/> +963 996604258 
                   </a>
                 </div>
               </div>
@@ -79,7 +79,7 @@ function Contact() {
                 <div>
                   <h3 className="font-bold text-lg text-gray-800 mb-1">واتساب</h3>
                   <a
-                    href="https://wa.me/963990748314"
+                    href="https://wa.me/954524972"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#B8860B] hover:underline"
@@ -97,7 +97,11 @@ function Contact() {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-gray-800 mb-1">العنوان</h3>
-                  <p className="text-gray-600">سوريا - القطيفة - النبك - يبرود - ديرعطية</p>
+                  <p className="text-gray-600">  سوريا  - دمشق   <br/>
+         حمص -<br/>
+       حماة -<br/>
+      ريف دمشق : القظيفة , النبك - , يبرود , دير عطية -      
+                  </p>
                 </div>
               </div>
             </div>
