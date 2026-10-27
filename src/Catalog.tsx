@@ -245,7 +245,7 @@ const uniqueSizes = ['all', ...new Set(
               <h2 className="text-3xl font-bold text-gray-800 mb-2">{selectedProduct.code}</h2>
               <p className="text-gray-600 mb-6 leading-relaxed text-lg">{selectedProduct.fullDescription}</p>
               <a
-                href={`https://wa.me/963990748314?text=مرحباً، أريد الاستفسار عن: ${selectedProduct.code}`}
+                href={`https://wa.me/963996604258?text=مرحباً، أريد الاستفسار عن: ${selectedProduct.code}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-center bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white px-6 py-4 rounded-xl transition-all duration-300 font-bold shadow-lg hover:shadow-xl text-lg"
